@@ -1,4 +1,6 @@
 
-import { toast } from "@/components/ui/use-toast";
+import { useToast as useToastPrimitive } from "@/components/ui/toast";
+import { toast as toastPrimitive } from "@/components/ui/toast";
 
-export { toast, useToast } from "@/components/ui/use-toast";
+export const useToast = useToastPrimitive;
+export const toast = toastPrimitive;
