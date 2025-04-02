@@ -10,6 +10,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle2 } from "lucide-react";
 import { useAnalytics } from "@/hooks/use-analytics";
+import AnimatedSection from "./AnimatedSection";
+import LoadingSpinner from "./LoadingSpinner";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
@@ -25,7 +28,17 @@ const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { trackFormSubmission, trackCTAClick } = useAnalytics();
+
+  React.useEffect(() => {
+    // Simulate form loading
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -78,15 +91,15 @@ const Contact = () => {
     <section id="contact" className="py-20 bg-asentica-beige-light" aria-labelledby="contact-heading">
       <div className="container-custom">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
+          <AnimatedSection className="text-center mb-12">
             <h2 id="contact-heading" className="heading-lg mb-4">Ready to Grow Your Medspa?</h2>
             <p className="paragraph max-w-2xl mx-auto">
               Schedule a free consultation with our team of medspa growth specialists.
             </p>
-          </div>
+          </AnimatedSection>
 
           {isSuccess ? (
-            <div className="text-center p-8 bg-white rounded-lg shadow-sm animate-fade-in" role="alert" aria-live="polite">
+            <AnimatedSection className="text-center p-8 bg-white rounded-lg shadow-sm" role="alert" aria-live="polite">
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-6">
                 <CheckCircle2 className="h-8 w-8 text-green-600" aria-hidden="true" />
               </div>
@@ -96,113 +109,147 @@ const Contact = () => {
               </p>
               <Button 
                 onClick={() => setIsSuccess(false)}
-                className="btn-primary"
+                className="btn-primary hover-glow"
               >
                 Submit Another Inquiry
               </Button>
-            </div>
+            </AnimatedSection>
           ) : (
-            <div className="bg-white p-8 rounded-lg shadow-sm animate-fade-in">
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <AnimatedSection className="bg-white p-8 rounded-lg shadow-sm">
+              {isLoading ? (
+                <div className="space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel htmlFor="name">Your Name</FormLabel>
-                          <FormControl>
-                            <Input id="name" placeholder="Jane Smith" {...field} aria-required="true" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="clinicName"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel htmlFor="clinicName">Clinic Name</FormLabel>
-                          <FormControl>
-                            <Input id="clinicName" placeholder="Glow Aesthetics" {...field} aria-required="true" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                    <div>
+                      <Skeleton className="h-4 w-20 mb-2" />
+                      <Skeleton className="h-10 w-full" />
+                    </div>
+                    <div>
+                      <Skeleton className="h-4 w-24 mb-2" />
+                      <Skeleton className="h-10 w-full" />
+                    </div>
                   </div>
-                  
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel htmlFor="email">Email</FormLabel>
-                        <FormControl>
-                          <Input id="email" type="email" placeholder="jane@glowmedical.com" {...field} aria-required="true" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="interests"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel htmlFor="interests">Areas of Interest</FormLabel>
-                        <FormControl>
-                          <Input 
-                            id="interests"
-                            placeholder="Marketing, Products, Training, etc." 
-                            {...field} 
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="message"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel htmlFor="message">Message</FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            id="message"
-                            placeholder="Tell us about your medspa and what you're looking to achieve..." 
-                            className="min-h-[120px]" 
-                            {...field} 
-                            aria-required="true"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
                   <div>
-                    <Button 
-                      type="submit" 
-                      className="btn-primary w-full"
-                      disabled={isSubmitting}
-                      onClick={handleSubmitButtonClick}
-                      aria-label={isSubmitting ? "Submitting form..." : "Book a Free Growth Audit"}
-                    >
-                      {isSubmitting ? "Processing..." : "Book a Free Growth Audit"}
-                    </Button>
-                    <p className="text-xs text-center mt-3 text-muted-foreground">
-                      By submitting this form, you agree to our Privacy Policy and Terms of Service.
-                    </p>
+                    <Skeleton className="h-4 w-16 mb-2" />
+                    <Skeleton className="h-10 w-full" />
                   </div>
-                </form>
-              </Form>
-            </div>
+                  <div>
+                    <Skeleton className="h-4 w-28 mb-2" />
+                    <Skeleton className="h-10 w-full" />
+                  </div>
+                  <div>
+                    <Skeleton className="h-4 w-20 mb-2" />
+                    <Skeleton className="h-24 w-full" />
+                  </div>
+                  <Skeleton className="h-12 w-full" />
+                </div>
+              ) : (
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel htmlFor="name">Your Name</FormLabel>
+                            <FormControl>
+                              <Input id="name" placeholder="Jane Smith" {...field} aria-required="true" className="focus:ring-2 focus:ring-asentica-gold/30 transition-shadow" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="clinicName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel htmlFor="clinicName">Clinic Name</FormLabel>
+                            <FormControl>
+                              <Input id="clinicName" placeholder="Glow Aesthetics" {...field} aria-required="true" className="focus:ring-2 focus:ring-asentica-gold/30 transition-shadow" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel htmlFor="email">Email</FormLabel>
+                          <FormControl>
+                            <Input id="email" type="email" placeholder="jane@glowmedical.com" {...field} aria-required="true" className="focus:ring-2 focus:ring-asentica-gold/30 transition-shadow" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="interests"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel htmlFor="interests">Areas of Interest</FormLabel>
+                          <FormControl>
+                            <Input 
+                              id="interests"
+                              placeholder="Marketing, Products, Training, etc." 
+                              {...field} 
+                              className="focus:ring-2 focus:ring-asentica-gold/30 transition-shadow"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel htmlFor="message">Message</FormLabel>
+                          <FormControl>
+                            <Textarea 
+                              id="message"
+                              placeholder="Tell us about your medspa and what you're looking to achieve..." 
+                              className="min-h-[120px] focus:ring-2 focus:ring-asentica-gold/30 transition-shadow" 
+                              {...field} 
+                              aria-required="true"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <div>
+                      <Button 
+                        type="submit" 
+                        className="btn-primary w-full hover-glow"
+                        disabled={isSubmitting}
+                        onClick={handleSubmitButtonClick}
+                        aria-label={isSubmitting ? "Submitting form..." : "Book a Free Growth Audit"}
+                      >
+                        {isSubmitting ? (
+                          <span className="flex items-center justify-center">
+                            <LoadingSpinner size="sm" color="white" />
+                            <span className="ml-2">Processing...</span>
+                          </span>
+                        ) : "Book a Free Growth Audit"}
+                      </Button>
+                      <p className="text-xs text-center mt-3 text-muted-foreground">
+                        By submitting this form, you agree to our Privacy Policy and Terms of Service.
+                      </p>
+                    </div>
+                  </form>
+                </Form>
+              )}
+            </AnimatedSection>
           )}
         </div>
       </div>

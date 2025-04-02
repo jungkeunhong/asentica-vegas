@@ -8,6 +8,8 @@ import Results from "../components/Results";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import ScrollToTop from "../components/ScrollToTop";
+import CookieConsent from "../components/CookieConsent";
 
 const Index = () => {
   useEffect(() => {
@@ -34,7 +36,7 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white subtle-pattern">
       <SEO 
         title="Asentica | AI-Powered Marketing & Growth Solutions for Medspas" 
         description="Boost your medspa's revenue with Asentica's AI marketing tools, exclusive treatments, and full-service growth support. Book a free consultation today."
@@ -51,6 +53,8 @@ const Index = () => {
         <Contact />
       </main>
       <Footer />
+      <ScrollToTop />
+      <CookieConsent />
     </div>
   );
 };
