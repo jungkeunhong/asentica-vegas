@@ -5,65 +5,100 @@ import AnimatedSection from "./AnimatedSection";
 
 const Results = () => {
   return (
-    <section id="results" className="py-20 bg-white">
-      <div className="container-custom">
+    <section id="results" className="py-20 bg-asentica-brown text-white relative">
+      <div className="absolute inset-0 bg-spa-pattern opacity-5"></div>
+      <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-white to-transparent"></div>
+      <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-white to-transparent"></div>
+      
+      <div className="container-custom relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <AnimatedSection animationType="slide-in-left">
-            <h2 className="heading-lg mb-6">We Know Aesthetics. And Growth.</h2>
-            <p className="paragraph mb-6">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">We Know Aesthetics. And Growth.</h2>
+            <p className="text-lg text-white/90 mb-8">
               Asentica is a U.S.-based growth partner for modern medspas. We combine AI-powered marketing, global product curation, and hands-on advisory to help you grow faster—with less stress.
             </p>
             <div className="grid grid-cols-2 gap-4">
               <AnimatedSection delay={0.2}>
-                <Card className="bg-gradient-to-br from-asentica-beige-light to-white border-0 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                <Card className="bg-white/10 border-0 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm">
                   <CardContent className="p-6">
-                    <div className="text-3xl font-bold text-asentica-brown mb-2">94%</div>
-                    <p className="text-sm text-foreground/80">Client retention rate</p>
+                    <div className="text-3xl font-bold text-asentica-gold mb-2">94%</div>
+                    <p className="text-sm text-white/80">Client retention rate</p>
                   </CardContent>
                 </Card>
               </AnimatedSection>
               
               <AnimatedSection delay={0.3}>
-                <Card className="bg-gradient-to-br from-asentica-beige-light to-white border-0 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                <Card className="bg-white/10 border-0 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm">
                   <CardContent className="p-6">
-                    <div className="text-3xl font-bold text-asentica-brown mb-2">48%</div>
-                    <p className="text-sm text-foreground/80">Average revenue increase</p>
+                    <div className="text-3xl font-bold text-asentica-gold mb-2">48%</div>
+                    <p className="text-sm text-white/80">Average revenue increase</p>
                   </CardContent>
                 </Card>
               </AnimatedSection>
               
               <AnimatedSection delay={0.4}>
-                <Card className="bg-gradient-to-br from-asentica-beige-light to-white border-0 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                <Card className="bg-white/10 border-0 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm">
                   <CardContent className="p-6">
-                    <div className="text-3xl font-bold text-asentica-brown mb-2">3.2x</div>
-                    <p className="text-sm text-foreground/80">Client acquisition</p>
+                    <div className="text-3xl font-bold text-asentica-gold mb-2">3.2x</div>
+                    <p className="text-sm text-white/80">Client acquisition</p>
                   </CardContent>
                 </Card>
               </AnimatedSection>
               
               <AnimatedSection delay={0.5}>
-                <Card className="bg-gradient-to-br from-asentica-beige-light to-white border-0 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                <Card className="bg-white/10 border-0 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm">
                   <CardContent className="p-6">
-                    <div className="text-3xl font-bold text-asentica-brown mb-2">27+</div>
-                    <p className="text-sm text-foreground/80">Exclusive treatments</p>
+                    <div className="text-3xl font-bold text-asentica-gold mb-2">27+</div>
+                    <p className="text-sm text-white/80">Exclusive treatments</p>
                   </CardContent>
                 </Card>
               </AnimatedSection>
             </div>
           </AnimatedSection>
           
-          <AnimatedSection animationType="slide-in-right" className="bg-gradient-to-br from-asentica-beige/30 to-asentica-beige/10 p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
-            <div className="mb-4 text-asentica-gold">★★★★★</div>
-            <p className="text-lg italic mb-6">
-              "Asentica transformed our client acquisition strategy. Our bookings increased by 37% within the first two months, and we've seen a noticeable improvement in client retention."
-            </p>
-            <div className="flex items-center">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-asentica-beige to-asentica-beige-light flex items-center justify-center mr-4 shadow-md">
-                <span className="text-asentica-brown font-semibold">JD</span>
+          <AnimatedSection animationType="slide-in-right" className="relative">
+            <div className="relative p-8 rounded-xl overflow-hidden">
+              {/* Before-After comparison */}
+              <div className="relative mb-8 rounded-lg overflow-hidden shadow-xl">
+                <div className="grid grid-cols-2 gap-1">
+                  <div className="relative">
+                    <div className="absolute top-2 left-2 px-2 py-1 bg-asentica-brown/80 text-white text-xs rounded">Before</div>
+                    <img 
+                      src="https://source.unsplash.com/random/400x300/?tired+skin" 
+                      alt="Before treatment" 
+                      className="w-full filter blur-[1px]"
+                    />
+                  </div>
+                  <div className="relative">
+                    <div className="absolute top-2 left-2 px-2 py-1 bg-asentica-gold/80 text-white text-xs rounded">After</div>
+                    <img 
+                      src="https://source.unsplash.com/random/400x300/?glowing+skin" 
+                      alt="After treatment" 
+                      className="w-full"
+                    />
+                  </div>
+                </div>
               </div>
-              <div>
-                <div className="font-semibold">Dr. Jennifer Davis</div>
-                <div className="text-sm text-foreground/70">Glow Medspa, California</div>
+              
+              {/* Testimonial */}
+              <div className="bg-white text-asentica-brown p-8 rounded-xl shadow-xl">
+                <div className="mb-4 text-asentica-gold">★★★★★</div>
+                <p className="text-lg italic mb-6">
+                  "Asentica transformed our client acquisition strategy. Our bookings increased by 37% within the first two months, and we've seen a noticeable improvement in client retention."
+                </p>
+                <div className="flex items-center">
+                  <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
+                    <img 
+                      src="https://source.unsplash.com/random/100x100/?professional+woman+portrait" 
+                      alt="Dr. Jennifer Davis" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <div className="font-semibold">Dr. Jennifer Davis</div>
+                    <div className="text-sm text-asentica-brown/70">Glow Medspa, California</div>
+                  </div>
+                </div>
               </div>
             </div>
           </AnimatedSection>

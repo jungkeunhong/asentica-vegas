@@ -29,11 +29,18 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white shadow-md py-3" : "bg-transparent py-5"}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      scrolled 
+        ? "bg-white/90 backdrop-blur-md shadow-md py-3" 
+        : "bg-transparent py-5"
+    }`}>
       <div className="container-custom">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <a href="#" className="text-2xl font-bold text-asentica-brown">
+            <a href="#" className="text-2xl font-bold text-asentica-brown flex items-center">
+              <div className="mr-2 w-8 h-8 rounded-full bg-asentica-gold/20 flex items-center justify-center">
+                <span className="text-sm font-bold text-asentica-brown">A</span>
+              </div>
               Asentica
             </a>
           </div>
@@ -67,7 +74,7 @@ const Navbar = () => {
               </button>
             </div>
             <Button 
-              className="btn-primary"
+              className="bg-asentica-brown text-white hover:bg-asentica-brown/90 px-6 py-3 rounded-md font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
               onClick={() => scrollToSection('contact')}
             >
               Get Started
@@ -109,7 +116,7 @@ const Navbar = () => {
                 Contact
               </button>
               <Button 
-                className="btn-primary w-full"
+                className="bg-asentica-brown text-white hover:bg-asentica-brown/90 w-full"
                 onClick={() => scrollToSection('contact')}
               >
                 Get Started

@@ -36,7 +36,7 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white subtle-pattern">
+    <div className="min-h-screen bg-white">
       <SEO 
         title="Asentica | AI-Powered Marketing & Growth Solutions for Medspas" 
         description="Boost your medspa's revenue with Asentica's AI marketing tools, exclusive treatments, and full-service growth support. Book a free consultation today."

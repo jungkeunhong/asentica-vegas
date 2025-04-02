@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -71,11 +70,10 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Asentica colors
         asentica: {
           brown: {
-            DEFAULT: "#73594B",
-            light: "#A68A7B",
+            DEFAULT: "#17110b",
+            light: "#3D2E1F",
           },
           beige: {
             DEFAULT: "#E6DDD0",
@@ -114,6 +112,19 @@ export default {
             backgroundPosition: "40rem 0",
           },
         },
+        "float": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        "shimmer": {
+          "0%": { backgroundPosition: "-468px 0" },
+          "100%": { backgroundPosition: "468px 0" },
+        },
+        "cinemagraph": {
+          "0%": { filter: "brightness(1) contrast(1)" },
+          "50%": { filter: "brightness(1.1) contrast(1.05)" },
+          "100%": { filter: "brightness(1) contrast(1)" },
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -121,9 +132,16 @@ export default {
         "fade-in": "fade-in 0.7s ease-out",
         "slide-in": "slide-in 0.4s ease-out",
         "image-shimmer": "image-shimmer 2s infinite linear",
+        "float": "float 6s ease-in-out infinite",
+        "shimmer": "shimmer 1.5s infinite",
+        "cinemagraph": "cinemagraph 8s ease-in-out infinite",
       },
       fontFamily: {
         sans: ["Inter", "sans-serif"],
+      },
+      backgroundImage: {
+        'spa-pattern': "url('/src/assets/spa-pattern.svg')",
+        'fluid-shape': "url('/src/assets/fluid-shape.svg')",
       },
     },
   },
@@ -132,19 +150,16 @@ export default {
     require("@tailwindcss/aspect-ratio"),
     function ({ addBase, theme }) {
       addBase({
-        // Improved font rendering
         html: {
           textRendering: 'optimizeLegibility',
           fontFeatureSettings: '"liga", "kern"',
           WebkitFontSmoothing: 'antialiased',
           MozOsxFontSmoothing: 'grayscale',
         },
-        // Focus styles for accessibility
         'a:focus, button:focus, input:focus, select:focus, textarea:focus': {
           outline: `2px solid ${theme('colors.primary.DEFAULT')}`,
           outlineOffset: '2px',
         },
-        // Print styles
         '@media print': {
           body: {
             color: '#000',
