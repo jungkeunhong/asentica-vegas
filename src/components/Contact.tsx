@@ -1,37 +1,15 @@
 
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
-import { CheckCircle2 } from "lucide-react";
-import { useAnalytics } from "@/hooks/use-analytics";
+import React, { useState, useEffect } from "react";
 import AnimatedSection from "./AnimatedSection";
-import LoadingSpinner from "./LoadingSpinner";
-import { Skeleton } from "@/components/ui/skeleton";
-
-const formSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters" }),
-  clinicName: z.string().min(2, { message: "Clinic name must be at least 2 characters" }),
-  email: z.string().email({ message: "Please enter a valid email address" }),
-  interests: z.string().optional(),
-  message: z.string().min(10, { message: "Message must be at least 10 characters" }),
-});
-
-type FormValues = z.infer<typeof formSchema>;
+import { ContactForm } from "./contact/ContactForm";
+import { ContactSuccessMessage } from "./contact/ContactSuccessMessage";
+import { ContactFormSkeleton } from "./contact/ContactFormSkeleton";
 
 const Contact = () => {
-  const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const { trackFormSubmission, trackCTAClick } = useAnalytics();
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Simulate form loading
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -40,51 +18,12 @@ const Contact = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      clinicName: "",
-      email: "",
-      interests: "",
-      message: "",
-    },
-  });
-
-  const onSubmit = async (data: FormValues) => {
-    setIsSubmitting(true);
-    
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log("Form data submitted:", data);
-      
-      // Track form submission
-      trackFormSubmission("growth-audit");
-      
-      // Show success state
-      setIsSuccess(true);
-      toast({
-        title: "Success!",
-        description: "We've received your inquiry and will be in touch soon.",
-      });
-      
-      // Reset form after submission
-      form.reset();
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      toast({
-        title: "Something went wrong.",
-        description: "Please try again later.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+  const handleSubmitSuccess = () => {
+    setIsSuccess(true);
   };
 
-  const handleSubmitButtonClick = () => {
-    trackCTAClick("Book a Free Growth Audit", "Contact Form");
+  const handleReset = () => {
+    setIsSuccess(false);
   };
 
   return (
@@ -99,157 +38,15 @@ const Contact = () => {
           </AnimatedSection>
 
           {isSuccess ? (
-            <AnimatedSection className="text-center p-8 bg-white rounded-lg shadow-sm" role="alert" aria-live="polite">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-6">
-                <CheckCircle2 className="h-8 w-8 text-green-600" aria-hidden="true" />
-              </div>
-              <h3 className="heading-md mb-4">Thank You!</h3>
-              <p className="paragraph mb-6">
-                We've received your information and will be in touch shortly to discuss how we can help grow your medspa business.
-              </p>
-              <Button 
-                onClick={() => setIsSuccess(false)}
-                className="btn-primary hover-glow"
-              >
-                Submit Another Inquiry
-              </Button>
-            </AnimatedSection>
+            <ContactSuccessMessage onReset={handleReset} />
           ) : (
-            <AnimatedSection className="bg-white p-8 rounded-lg shadow-sm">
-              {isLoading ? (
-                <div className="space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
-                      <Skeleton className="h-4 w-20 mb-2" />
-                      <Skeleton className="h-10 w-full" />
-                    </div>
-                    <div>
-                      <Skeleton className="h-4 w-24 mb-2" />
-                      <Skeleton className="h-10 w-full" />
-                    </div>
-                  </div>
-                  <div>
-                    <Skeleton className="h-4 w-16 mb-2" />
-                    <Skeleton className="h-10 w-full" />
-                  </div>
-                  <div>
-                    <Skeleton className="h-4 w-28 mb-2" />
-                    <Skeleton className="h-10 w-full" />
-                  </div>
-                  <div>
-                    <Skeleton className="h-4 w-20 mb-2" />
-                    <Skeleton className="h-24 w-full" />
-                  </div>
-                  <Skeleton className="h-12 w-full" />
-                </div>
-              ) : (
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel htmlFor="name">Your Name</FormLabel>
-                            <FormControl>
-                              <Input id="name" placeholder="Jane Smith" {...field} aria-required="true" className="focus:ring-2 focus:ring-asentica-gold/30 transition-shadow" />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="clinicName"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel htmlFor="clinicName">Clinic Name</FormLabel>
-                            <FormControl>
-                              <Input id="clinicName" placeholder="Glow Aesthetics" {...field} aria-required="true" className="focus:ring-2 focus:ring-asentica-gold/30 transition-shadow" />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                    
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel htmlFor="email">Email</FormLabel>
-                          <FormControl>
-                            <Input id="email" type="email" placeholder="jane@glowmedical.com" {...field} aria-required="true" className="focus:ring-2 focus:ring-asentica-gold/30 transition-shadow" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="interests"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel htmlFor="interests">Areas of Interest</FormLabel>
-                          <FormControl>
-                            <Input 
-                              id="interests"
-                              placeholder="Marketing, Products, Training, etc." 
-                              {...field} 
-                              className="focus:ring-2 focus:ring-asentica-gold/30 transition-shadow"
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="message"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel htmlFor="message">Message</FormLabel>
-                          <FormControl>
-                            <Textarea 
-                              id="message"
-                              placeholder="Tell us about your medspa and what you're looking to achieve..." 
-                              className="min-h-[120px] focus:ring-2 focus:ring-asentica-gold/30 transition-shadow" 
-                              {...field} 
-                              aria-required="true"
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <div>
-                      <Button 
-                        type="submit" 
-                        className="btn-primary w-full hover-glow"
-                        disabled={isSubmitting}
-                        onClick={handleSubmitButtonClick}
-                        aria-label={isSubmitting ? "Submitting form..." : "Book a Free Growth Audit"}
-                      >
-                        {isSubmitting ? (
-                          <span className="flex items-center justify-center">
-                            <LoadingSpinner size="sm" color="white" />
-                            <span className="ml-2">Processing...</span>
-                          </span>
-                        ) : "Book a Free Growth Audit"}
-                      </Button>
-                      <p className="text-xs text-center mt-3 text-muted-foreground">
-                        By submitting this form, you agree to our Privacy Policy and Terms of Service.
-                      </p>
-                    </div>
-                  </form>
-                </Form>
-              )}
-            </AnimatedSection>
+            isLoading ? (
+              <ContactFormSkeleton />
+            ) : (
+              <AnimatedSection className="bg-white p-8 rounded-lg shadow-sm">
+                <ContactForm onSubmitSuccess={handleSubmitSuccess} />
+              </AnimatedSection>
+            )
           )}
         </div>
       </div>
