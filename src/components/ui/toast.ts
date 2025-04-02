@@ -1,7 +1,5 @@
 
-// This file serves as the main export point for toast functionality
-import * as React from "react";
-import { type ToastActionElement, ToastProps } from "@/components/ui/toast";
+import { ToastActionElement, ToastProps } from "./toast/toast-types";
 
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1000000;
@@ -162,6 +160,8 @@ function toast({ ...props }: Toast) {
   };
 }
 
+import * as React from "react";
+
 function useToast() {
   const [state, setState] = React.useState<State>(memoryState);
 
@@ -183,4 +183,4 @@ function useToast() {
 }
 
 export { useToast, toast };
-
+export type { ToastProps };
