@@ -18,6 +18,14 @@ export default {
         "2xl": "1400px",
       },
     },
+    screens: {
+      'xs': '375px',
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1440px',
+    },
     extend: {
       colors: {
         border: "hsl(var(--border))",
@@ -98,17 +106,56 @@ export default {
           "0%": { opacity: "0", transform: "translateX(-10px)" },
           "100%": { opacity: "1", transform: "translateX(0)" },
         },
+        "image-shimmer": {
+          "0%": {
+            backgroundPosition: "-40rem 0",
+          },
+          "100%": {
+            backgroundPosition: "40rem 0",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.7s ease-out",
         "slide-in": "slide-in 0.4s ease-out",
+        "image-shimmer": "image-shimmer 2s infinite linear",
       },
       fontFamily: {
         sans: ["Inter", "sans-serif"],
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/aspect-ratio"),
+    function ({ addBase, theme }) {
+      addBase({
+        // Improved font rendering
+        html: {
+          textRendering: 'optimizeLegibility',
+          fontFeatureSettings: '"liga", "kern"',
+          WebkitFontSmoothing: 'antialiased',
+          MozOsxFontSmoothing: 'grayscale',
+        },
+        // Focus styles for accessibility
+        'a:focus, button:focus, input:focus, select:focus, textarea:focus': {
+          outline: `2px solid ${theme('colors.primary.DEFAULT')}`,
+          outlineOffset: '2px',
+        },
+        // Print styles
+        '@media print': {
+          body: {
+            color: '#000',
+            background: '#fff',
+          },
+          'a, a:visited': {
+            textDecoration: 'underline',
+            color: '#000',
+          },
+        },
+      });
+    },
+  ],
 } satisfies Config;

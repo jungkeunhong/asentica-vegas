@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle2 } from "lucide-react";
+import { useAnalytics } from "@/hooks/use-analytics";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
@@ -24,6 +25,7 @@ const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const { trackFormSubmission, trackCTAClick } = useAnalytics();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -43,6 +45,9 @@ const Contact = () => {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log("Form data submitted:", data);
+      
+      // Track form submission
+      trackFormSubmission("growth-audit");
       
       // Show success state
       setIsSuccess(true);
@@ -65,21 +70,25 @@ const Contact = () => {
     }
   };
 
+  const handleSubmitButtonClick = () => {
+    trackCTAClick("Book a Free Growth Audit", "Contact Form");
+  };
+
   return (
-    <section id="contact" className="py-20 bg-asentica-beige-light">
+    <section id="contact" className="py-20 bg-asentica-beige-light" aria-labelledby="contact-heading">
       <div className="container-custom">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="heading-lg mb-4">Ready to Grow Your Medspa?</h2>
+            <h2 id="contact-heading" className="heading-lg mb-4">Ready to Grow Your Medspa?</h2>
             <p className="paragraph max-w-2xl mx-auto">
               Schedule a free consultation with our team of medspa growth specialists.
             </p>
           </div>
 
           {isSuccess ? (
-            <div className="text-center p-8 bg-white rounded-lg shadow-sm animate-fade-in">
+            <div className="text-center p-8 bg-white rounded-lg shadow-sm animate-fade-in" role="alert" aria-live="polite">
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-6">
-                <CheckCircle2 className="h-8 w-8 text-green-600" />
+                <CheckCircle2 className="h-8 w-8 text-green-600" aria-hidden="true" />
               </div>
               <h3 className="heading-md mb-4">Thank You!</h3>
               <p className="paragraph mb-6">
@@ -102,9 +111,9 @@ const Contact = () => {
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Your Name</FormLabel>
+                          <FormLabel htmlFor="name">Your Name</FormLabel>
                           <FormControl>
-                            <Input placeholder="Jane Smith" {...field} />
+                            <Input id="name" placeholder="Jane Smith" {...field} aria-required="true" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -115,9 +124,9 @@ const Contact = () => {
                       name="clinicName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Clinic Name</FormLabel>
+                          <FormLabel htmlFor="clinicName">Clinic Name</FormLabel>
                           <FormControl>
-                            <Input placeholder="Glow Aesthetics" {...field} />
+                            <Input id="clinicName" placeholder="Glow Aesthetics" {...field} aria-required="true" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -130,9 +139,9 @@ const Contact = () => {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel htmlFor="email">Email</FormLabel>
                         <FormControl>
-                          <Input type="email" placeholder="jane@glowmedical.com" {...field} />
+                          <Input id="email" type="email" placeholder="jane@glowmedical.com" {...field} aria-required="true" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -144,9 +153,10 @@ const Contact = () => {
                     name="interests"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Areas of Interest</FormLabel>
+                        <FormLabel htmlFor="interests">Areas of Interest</FormLabel>
                         <FormControl>
                           <Input 
+                            id="interests"
                             placeholder="Marketing, Products, Training, etc." 
                             {...field} 
                           />
@@ -161,12 +171,14 @@ const Contact = () => {
                     name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Message</FormLabel>
+                        <FormLabel htmlFor="message">Message</FormLabel>
                         <FormControl>
                           <Textarea 
+                            id="message"
                             placeholder="Tell us about your medspa and what you're looking to achieve..." 
                             className="min-h-[120px]" 
                             {...field} 
+                            aria-required="true"
                           />
                         </FormControl>
                         <FormMessage />
@@ -179,6 +191,8 @@ const Contact = () => {
                       type="submit" 
                       className="btn-primary w-full"
                       disabled={isSubmitting}
+                      onClick={handleSubmitButtonClick}
+                      aria-label={isSubmitting ? "Submitting form..." : "Book a Free Growth Audit"}
                     >
                       {isSubmitting ? "Processing..." : "Book a Free Growth Audit"}
                     </Button>
