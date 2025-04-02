@@ -2,66 +2,59 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 
-const testimonials = [
-  {
-    id: 1,
-    quote: "Working with Asentica transformed our medspa. Their AI-driven approach helped us identify the perfect client base and increased our bookings by 75% in just three months.",
-    author: "Sarah Johnson",
-    position: "Owner, Radiance Medspa",
-    stats: {
-      value: "75%",
-      label: "Increase in Bookings"
-    }
-  },
-  {
-    id: 2,
-    quote: "The exclusive treatments Asentica provided gave us a true competitive edge in our market. Our clients love the results, and we've seen a 60% increase in repeat business.",
-    author: "Michael Chen",
-    position: "Director, Glow Aesthetic Clinic",
-    stats: {
-      value: "60%",
-      label: "Increase in Client Retention"
-    }
-  },
-  {
-    id: 3,
-    quote: "Asentica's operational guidance helped us streamline our processes, reducing wait times and improving the overall client experience. Our revenue has grown by 40% year-over-year.",
-    author: "Emily Rodriguez",
-    position: "Manager, Pure Skin Solutions",
-    stats: {
-      value: "40%",
-      label: "Revenue Growth"
-    }
-  }
-];
-
 const Results = () => {
   return (
     <section id="results" className="py-20 bg-white">
       <div className="container-custom">
-        <div className="text-center mb-16">
-          <h2 className="heading-lg mb-4">Measurable Results</h2>
-          <p className="paragraph max-w-2xl mx-auto">
-            Our partners experience significant growth in client acquisition, retention, and revenue. Here's what they say about working with Asentica.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial) => (
-            <Card key={testimonial.id} className="border border-asentica-beige hover:shadow-lg transition-all duration-300">
-              <CardContent className="p-6">
-                <div className="mb-6 text-center">
-                  <div className="text-4xl font-bold text-asentica-gold mb-1">{testimonial.stats.value}</div>
-                  <div className="text-sm uppercase tracking-wider text-foreground/70">{testimonial.stats.label}</div>
-                </div>
-                <blockquote className="mb-6 text-foreground/80 italic text-center">"{testimonial.quote}"</blockquote>
-                <div className="text-center">
-                  <div className="font-semibold text-asentica-brown">{testimonial.author}</div>
-                  <div className="text-sm text-foreground/70">{testimonial.position}</div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div className="animate-fade-in">
+            <h2 className="heading-lg mb-6">We Know Aesthetics. And Growth.</h2>
+            <p className="paragraph mb-6">
+              Asentica is a U.S.-based growth partner for modern medspas. We combine AI-powered marketing, global product curation, and hands-on advisory to help you grow faster—with less stress.
+            </p>
+            <div className="grid grid-cols-2 gap-4">
+              <Card className="bg-asentica-beige-light border-0">
+                <CardContent className="p-6">
+                  <div className="text-3xl font-bold text-asentica-brown mb-2">94%</div>
+                  <p className="text-sm text-foreground/80">Client retention rate</p>
+                </CardContent>
+              </Card>
+              <Card className="bg-asentica-beige-light border-0">
+                <CardContent className="p-6">
+                  <div className="text-3xl font-bold text-asentica-brown mb-2">48%</div>
+                  <p className="text-sm text-foreground/80">Average revenue increase</p>
+                </CardContent>
+              </Card>
+              <Card className="bg-asentica-beige-light border-0">
+                <CardContent className="p-6">
+                  <div className="text-3xl font-bold text-asentica-brown mb-2">3.2x</div>
+                  <p className="text-sm text-foreground/80">Client acquisition</p>
+                </CardContent>
+              </Card>
+              <Card className="bg-asentica-beige-light border-0">
+                <CardContent className="p-6">
+                  <div className="text-3xl font-bold text-asentica-brown mb-2">27+</div>
+                  <p className="text-sm text-foreground/80">Exclusive treatments</p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+          
+          <div className="bg-asentica-beige/20 p-8 rounded-xl animate-fade-in">
+            <div className="mb-4 text-asentica-gold">★★★★★</div>
+            <p className="text-lg italic mb-6">
+              "Asentica transformed our client acquisition strategy. Our bookings increased by 37% within the first two months, and we've seen a noticeable improvement in client retention."
+            </p>
+            <div className="flex items-center">
+              <div className="w-12 h-12 rounded-full bg-asentica-beige flex items-center justify-center mr-4">
+                <span className="text-asentica-brown font-semibold">JD</span>
+              </div>
+              <div>
+                <div className="font-semibold">Dr. Jennifer Davis</div>
+                <div className="text-sm text-foreground/70">Glow Medspa, California</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -4,22 +4,29 @@ import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
 
 const Hero = () => {
+  const scrollToContact = () => {
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section className="min-h-screen pt-24 flex flex-col justify-center relative overflow-hidden bg-gradient-to-b from-asentica-beige-light to-white">
       <div className="container-custom z-10">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="heading-xl mb-6 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            Grow Your Medspa with <span className="text-asentica-gold">AI-Powered</span> Solutions
+            Unlock Medspa Growth with <span className="text-asentica-gold">AI-Driven</span> Marketing & Trusted Treatments
           </h1>
           <p className="paragraph mb-8 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.4s" }}>
-            Asentica combines AI-driven marketing expertise with exclusive treatment solutions to help medspas attract qualified clients, optimize operations, and maximize revenue.
+            Asentica helps you attract better clients, boost retention, and stand out with high-performing products and modern marketing strategies.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in" style={{ animationDelay: "0.6s" }}>
-            <Button className="btn-primary">Schedule a Consultation</Button>
+            <Button className="btn-primary" onClick={scrollToContact}>Book a Free Growth Audit</Button>
             <Button variant="outline" className="border-asentica-brown text-asentica-brown hover:bg-asentica-beige">
               Explore Our Services
             </Button>
           </div>
+          <p className="text-sm text-asentica-brown/70 mt-6 animate-fade-in" style={{ animationDelay: "0.8s" }}>
+            Partnered with top medspas & aesthetic leaders in the U.S. and Korea.
+          </p>
         </div>
       </div>
 

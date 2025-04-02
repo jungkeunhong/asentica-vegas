@@ -1,83 +1,84 @@
 
 import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Check } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { BrainCircuit, Layers, HeartHandshake } from "lucide-react";
 
-const servicesData = [
-  {
-    id: 1,
-    title: "AI-Powered Marketing",
-    description: "Target the right clients with precision using our AI-driven marketing strategies tailored specifically for medspa businesses.",
-    features: [
-      "Client acquisition & retention",
-      "Data-driven campaign optimization",
-      "Social media management",
-      "SEO & content marketing"
-    ]
-  },
-  {
-    id: 2,
-    title: "Exclusive Treatments",
-    description: "Access curated, clinically-validated treatment solutions including Korean innovations to differentiate your medspa.",
-    features: [
-      "Korean aesthetic innovations",
-      "Exclusive product access",
-      "Staff training & certification",
-      "Treatment protocol optimization"
-    ]
-  },
-  {
-    id: 3,
-    title: "Operations Excellence",
-    description: "Streamline your medspa operations to maximize efficiency, client satisfaction, and revenue.",
-    features: [
-      "Workflow optimization",
-      "Client journey mapping",
-      "Scheduling & resource management",
-      "Performance analytics"
-    ]
-  }
-];
+const ServiceCard = ({ 
+  icon: Icon, 
+  title, 
+  bulletPoints 
+}: { 
+  icon: React.ElementType; 
+  title: string; 
+  bulletPoints: string[] 
+}) => (
+  <Card className="border-asentica-beige hover:shadow-md transition-shadow duration-300">
+    <CardHeader className="pb-2">
+      <div className="h-12 w-12 rounded-full bg-asentica-beige flex items-center justify-center mb-4">
+        <Icon className="text-asentica-brown h-6 w-6" />
+      </div>
+      <CardTitle className="text-xl text-asentica-brown">{title}</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <ul className="space-y-2">
+        {bulletPoints.map((point, index) => (
+          <li key={index} className="flex items-start">
+            <span className="text-asentica-gold mr-2">•</span>
+            <CardDescription className="text-foreground/80">{point}</CardDescription>
+          </li>
+        ))}
+      </ul>
+    </CardContent>
+  </Card>
+);
 
 const Services = () => {
   return (
-    <section id="services" className="py-20 bg-white relative">
+    <section id="services" className="py-20 bg-white">
       <div className="container-custom">
-        <div className="text-center mb-16">
-          <h2 className="heading-lg mb-4">Comprehensive Growth Solutions</h2>
-          <p className="paragraph max-w-2xl mx-auto">
-            Our services are designed to address every aspect of your medspa's growth journey, from attracting new clients to optimizing operations.
+        <div className="text-center mb-12">
+          <h2 className="heading-lg mb-4">How We Help Your Medspa Grow</h2>
+          <p className="paragraph max-w-2xl mx-auto text-foreground/80">
+            Our comprehensive approach combines cutting-edge technology with industry expertise
+            to deliver measurable growth for your medspa business.
           </p>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {servicesData.map((service, index) => (
-            <Card key={service.id} className="border border-asentica-beige hover:shadow-md transition-shadow overflow-hidden group">
-              <CardContent className="p-6">
-                <div className="h-full flex flex-col">
-                  <h3 className="heading-md mb-3">{service.title}</h3>
-                  <p className="paragraph text-base mb-6">{service.description}</p>
-                  <div className="mt-auto">
-                    <ul className="space-y-2">
-                      {service.features.map((feature, i) => (
-                        <li key={i} className="flex items-start">
-                          <span className="mr-2 mt-1 text-asentica-gold">
-                            <Check size={16} />
-                          </span>
-                          <span className="text-foreground/80">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="animate-fade-in" style={{ animationDelay: "0.1s" }}>
+            <ServiceCard 
+              icon={BrainCircuit}
+              title="AI-Powered Marketing Engine"
+              bulletPoints={[
+                "Targeted campaigns, client segmentation, and automated follow-ups",
+                "Content & influencer partnerships that convert"
+              ]}
+            />
+          </div>
+          
+          <div className="animate-fade-in" style={{ animationDelay: "0.3s" }}>
+            <ServiceCard 
+              icon={Layers}
+              title="Curated Treatment Portfolio"
+              bulletPoints={[
+                "Access to effective skincare products, injectables, and tech from Korea and beyond",
+                "Always clinically validated, business-aligned"
+              ]}
+            />
+          </div>
+          
+          <div className="animate-fade-in" style={{ animationDelay: "0.5s" }}>
+            <ServiceCard 
+              icon={HeartHandshake}
+              title="Full-Service Support"
+              bulletPoints={[
+                "Branding, onboarding, training, and conversion strategy",
+                "No fluff, just results"
+              ]}
+            />
+          </div>
         </div>
       </div>
-
-      {/* Decorative element */}
-      <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-asentica-beige-light to-white"></div>
     </section>
   );
 };

@@ -9,6 +9,12 @@ const Navbar = () => {
 
   const toggleMenu = () => setIsOpen(!isOpen);
   
+  const scrollToSection = (sectionId: string) => {
+    setIsOpen(false);
+    const section = document.getElementById(sectionId);
+    section?.scrollIntoView({ behavior: "smooth" });
+  };
+  
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 20) {
@@ -35,20 +41,37 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <div className="space-x-6">
-              <a href="#services" className="text-asentica-brown/90 hover:text-asentica-brown transition-colors">
+              <button 
+                onClick={() => scrollToSection('services')} 
+                className="text-asentica-brown/90 hover:text-asentica-brown transition-colors"
+              >
                 Services
-              </a>
-              <a href="#approach" className="text-asentica-brown/90 hover:text-asentica-brown transition-colors">
+              </button>
+              <button 
+                onClick={() => scrollToSection('approach')} 
+                className="text-asentica-brown/90 hover:text-asentica-brown transition-colors"
+              >
                 Our Approach
-              </a>
-              <a href="#results" className="text-asentica-brown/90 hover:text-asentica-brown transition-colors">
-                Results
-              </a>
-              <a href="#contact" className="text-asentica-brown/90 hover:text-asentica-brown transition-colors">
+              </button>
+              <button 
+                onClick={() => scrollToSection('results')} 
+                className="text-asentica-brown/90 hover:text-asentica-brown transition-colors"
+              >
+                About Us
+              </button>
+              <button 
+                onClick={() => scrollToSection('contact')} 
+                className="text-asentica-brown/90 hover:text-asentica-brown transition-colors"
+              >
                 Contact
-              </a>
+              </button>
             </div>
-            <Button className="btn-primary">Get Started</Button>
+            <Button 
+              className="btn-primary"
+              onClick={() => scrollToSection('contact')}
+            >
+              Get Started
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -61,35 +84,36 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden mt-4 pb-4 animate-fade-in">
             <div className="flex flex-col space-y-4">
-              <a 
-                href="#services" 
-                className="text-asentica-brown/90 hover:text-asentica-brown transition-colors"
-                onClick={() => setIsOpen(false)}
+              <button 
+                className="text-asentica-brown/90 hover:text-asentica-brown transition-colors text-left"
+                onClick={() => scrollToSection('services')}
               >
                 Services
-              </a>
-              <a 
-                href="#approach" 
-                className="text-asentica-brown/90 hover:text-asentica-brown transition-colors"
-                onClick={() => setIsOpen(false)}
+              </button>
+              <button 
+                className="text-asentica-brown/90 hover:text-asentica-brown transition-colors text-left"
+                onClick={() => scrollToSection('approach')}
               >
                 Our Approach
-              </a>
-              <a 
-                href="#results" 
-                className="text-asentica-brown/90 hover:text-asentica-brown transition-colors"
-                onClick={() => setIsOpen(false)}
+              </button>
+              <button 
+                className="text-asentica-brown/90 hover:text-asentica-brown transition-colors text-left"
+                onClick={() => scrollToSection('results')}
               >
-                Results
-              </a>
-              <a 
-                href="#contact" 
-                className="text-asentica-brown/90 hover:text-asentica-brown transition-colors"
-                onClick={() => setIsOpen(false)}
+                About Us
+              </button>
+              <button 
+                className="text-asentica-brown/90 hover:text-asentica-brown transition-colors text-left"
+                onClick={() => scrollToSection('contact')}
               >
                 Contact
-              </a>
-              <Button className="btn-primary w-full">Get Started</Button>
+              </button>
+              <Button 
+                className="btn-primary w-full"
+                onClick={() => scrollToSection('contact')}
+              >
+                Get Started
+              </Button>
             </div>
           </div>
         )}
