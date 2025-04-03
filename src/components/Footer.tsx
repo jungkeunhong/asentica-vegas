@@ -1,10 +1,7 @@
-
 import React from "react";
 import { Instagram, Mail, MapPin, Phone } from "lucide-react";
-
 const Footer = () => {
-  return (
-    <footer className="bg-asentica-brown text-white">
+  return <footer className="bg-asentica-brown text-white">
       <div className="container-custom">
         <div className="py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
           <div>
@@ -40,9 +37,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center">
                 <Mail size={18} className="mr-2 flex-shrink-0" />
-                <a href="mailto:info@asentica.com" className="text-sm text-white/80 hover:text-white">
-                  info@asentica.com
-                </a>
+                <a href="mailto:info@asentica.com" className="text-sm text-white/80 hover:text-white">support@asentica.com</a>
               </div>
             </div>
           </div>
@@ -80,8 +75,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
