@@ -1,12 +1,41 @@
 [build]
   command = "npm run build"
   publish = "dist"
+  environment = { NODE_VERSION = "18" }
 
 [dev]
   command = "npm run dev"
   port = 8084
-  
+
+# Handle single-page application routing
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Handle 404 errors
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 404
+
+# Asset handling
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Content-Type = "application/javascript"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Content-Type = "text/css"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer-when-downgrade"
+    Access-Control-Allow-Origin = "*"
+    Content-Security-Policy = "default-src 'self' 'unsafe-inline' 'unsafe-eval'; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self'; media-src 'self'; object-src 'none'; frame-ancestors 'none'; worker-src 'self' blob:; manifest-src 'self'"
