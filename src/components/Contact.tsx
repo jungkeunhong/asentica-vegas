@@ -62,7 +62,7 @@ const Contact = () => {
                 <div className="w-16 h-16 rounded-full bg-asentica-brown/10 flex items-center justify-center mb-2">
                   <img src="/location-icon.svg" alt="Location" className="w-8 h-8 opacity-60" />
                 </div>
-                <span className="text-sm text-asentica-brown/80">Los Angeles, CA</span>
+                <span className="text-sm text-asentica-brown/80">330 West 42nd Street, 26th Floor, New York, NY 10036</span>
               </div>
             </div>
           </AnimatedSection>
