@@ -3,13 +3,9 @@
   X-XSS-Protection: 1; mode=block
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer-when-downgrade
-  Content-Security-Policy: default-src 'none';
-    font-src 'self' https://fonts.gstatic.com;
-    style-src 'self' https://fonts.googleapis.com;
-    connect-src 'self';
-    img-src 'self' data: https:;
-    script-src 'self';
-    media-src 'self';
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+  Access-Control-Allow-Headers: *
 
 /*.js
   Content-Type: application/javascript
@@ -19,3 +15,20 @@
 
 /*.js.map
   Content-Type: application/json
+
+*:
+  Content-Security-Policy: default-src 'self';
+    font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com;
+    style-src 'self' https://fonts.googleapis.com;
+    connect-src 'self';
+    img-src 'self' data: https:;
+    script-src 'self';
+    media-src 'self';
+    object-src 'self';
+    frame-src 'self';
+    worker-src 'self';
+    child-src 'self';
+    form-action 'self';
+    base-uri 'self';
+    manifest-src 'self';
+    frame-ancestors 'none';
