@@ -3,6 +3,13 @@
   X-XSS-Protection: 1; mode=block
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer-when-downgrade
+  Content-Security-Policy: default-src 'none';
+    font-src 'self' https://fonts.gstatic.com;
+    style-src 'self' https://fonts.googleapis.com;
+    connect-src 'self';
+    img-src 'self' data: https:;
+    script-src 'self';
+    media-src 'self';
 
 /*.js
   Content-Type: application/javascript
