@@ -29,7 +29,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <GoogleTagManager gtmId="GTM-XXXXXXX" />
-        <BrowserRouter>
+        <BrowserRouter basename="/asentica-vegas">
           <PageViewTracker />
           <Routes>
             <Route path="/" element={<Index />} />
