@@ -53,7 +53,7 @@ const Contact = () => {
                 <div className="w-16 h-16 rounded-full bg-asentica-brown/10 flex items-center justify-center mb-2">
                   <img src="/phone-icon.svg" alt="Phone" className="w-8 h-8 opacity-60" />
                 </div>
-                <span className="text-sm text-asentica-brown/80">+1 (510) 555-1234</span>
+                <span className="text-sm text-asentica-brown/80">+1 (510) 812-7597</span>
               </div>
               
               <div className="hidden sm:block w-px h-16 bg-asentica-beige"></div>
